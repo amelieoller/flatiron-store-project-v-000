@@ -1,8 +1,34 @@
-<nav class="">
-    <ul>
-        <li> <%= link_to "Store Home", store_path %> </li>
-        <% if !!@cart %>
-          <li> <%= link_to "Cart", cart_path(current_cart) %></li>
-        <% end %>
-    </ul>
-</nav>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="<%= store_path %>">Store Home</a>
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <% if current_user %>
+                    <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+                    <% if current_user.current_cart %>
+                        <li><a href="<%= cart_path(current_user.current_cart) %>">Cart</a></li>
+                    <% end %>
+                <% else %>
+                    <li><a href="<%= new_user_registration_path %>">Sign Up</a></li>
+                    <li><a href="<%= new_user_session_path %>">Sign In</a></li>
+                <% end %>
+            </ul>
+
+            <% if current_user %>
+                <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link"><%= current_user.email %></a></p>
+            <% end %>
+            
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    </nav>

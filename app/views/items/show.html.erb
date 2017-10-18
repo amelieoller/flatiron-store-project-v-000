@@ -1,2 +1,5 @@
 <h1><%= @item.title %></h1>
-<h2>$ <%= @item.price %></h2>
+<h2><%= to_currency(@item.price) %></h2>
+<% if logged_in? %>
+<%= button_to 'Add to Cart', line_items_path(item_id: @item), class: 'btn btn-primary' %>
+<% end %>
